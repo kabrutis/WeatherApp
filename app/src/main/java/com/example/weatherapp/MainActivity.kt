@@ -37,6 +37,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberAsyncImagePainter
 import com.example.weatherapp.core.utils.Result
 import com.example.weatherapp.presentation.WeatherViewModel
+import com.example.weatherapp.presentation.navigation.WeatherNavGraph
+import com.example.weatherapp.presentation.ui.utils.weatherIconUrl
 import com.example.weatherapp.ui.theme.WeatherAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -49,20 +51,12 @@ class MainActivity : ComponentActivity() {
             WeatherAppTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { _ ->
 
-                    WeatherScreen()
-                    //WeatherNavGraph()
+                    //WeatherScreen()
+                    WeatherNavGraph()
                 }
             }
         }
     }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = name,
-        modifier = modifier
-    )
 }
 
 @Composable
@@ -106,9 +100,8 @@ fun WeatherScreen(
                         Text("Main: ${weather.weatherMain}")
                         Text("Desc: ${weather.weatherDescription}%")
                         Image(
-                            painter = rememberAsyncImagePainter(model = "https://openweathermap.org/img/wn/${weather.iconCode}@2x.png"),
-
-                                contentDescription = null,
+                            painter = rememberAsyncImagePainter(model = weatherIconUrl(weather.iconCode)),
+                            contentDescription = null,
                             modifier = Modifier.size(32.dp)
                         )
                         Spacer(modifier = Modifier.size(2.dp).background(Color.Black))
@@ -123,13 +116,5 @@ fun WeatherScreen(
                 )
             }
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    WeatherAppTheme {
-        Greeting("Android")
     }
 }
