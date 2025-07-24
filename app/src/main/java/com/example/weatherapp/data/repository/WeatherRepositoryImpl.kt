@@ -1,12 +1,12 @@
 package com.example.weatherapp.data.repository
 
-import android.util.Log
 import com.example.weatherapp.data.remote.WeatherServiceApi
 import com.example.weatherapp.domain.models.WeatherInfo
 import com.example.weatherapp.domain.repository.WeatherRepository
 import kotlinx.coroutines.flow.Flow
 import com.example.weatherapp.core.utils.Result
 import com.example.weatherapp.data.mapper.WeatherMapper
+import com.example.weatherapp.domain.models.ErrorType
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
@@ -23,7 +23,8 @@ class WeatherRepositoryImpl @Inject constructor(
             val weatherInfo = WeatherMapper.toWeatherInfo(response)
             emit(Result.Success(weatherInfo))
         } catch (e: Exception) {
-            emit(Result.Error(e))
+            val errType = ErrorType.fromExceptionMessage(e.message)
+            emit(Result.Error(errType, e))
         }
     }.flowOn(Dispatchers.IO)
 }
