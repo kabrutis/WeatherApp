@@ -112,6 +112,5 @@ fun WeatherDetailItem(
 
         Text(text = temp)
 
-
     }
 }

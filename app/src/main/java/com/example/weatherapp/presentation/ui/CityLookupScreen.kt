@@ -31,6 +31,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
@@ -118,7 +120,7 @@ fun CityLookupScreen(
                     }
 
                     if (state is Result.Loading) {
-                        CircularProgressIndicator()
+                        CircularProgressIndicator(modifier = Modifier.semantics { contentDescription = "Loading" })
                     }
                 }
             }
